@@ -4,7 +4,7 @@ const indexJS = require('./index.js');
 
 const comand = process.argv[2]
 
-const coreFunction = (comand) => {
+const comandFunction = (comand) => {
     if (comand === '--validate' && comand === '--stats'){
         /*Total: 3
         Unique: 3
@@ -22,18 +22,35 @@ const coreFunction = (comand) => {
 
 //Recorrer carpeta de archivo
 indexJS.throughFolder(path.resolve())
+.then(files => {
+  for (let i = 0; i < files.length; i++) {
+    if(path.extname(files[i]) === '.md') {
+       indexJS.takeLinks(files[i])
+      .then(links => {
+        const linkToCheck = links
+        return linkToCheck
+      })
+      .then (linkToCheck => {
+          linkToCheck.forEach(e => {
+              indexJS.urlStatus(e)
+              .then(checkedLink => {
+                console.log(e)
+                console.log(checkedLink.status)   
+              })
+          });
+      })
+    }        
+  }
+})
+.catch(err => console.log(err))
+
+/*indexJS.takeLinks(docToRead)
 .then(res => console.log(res))
 .catch(err => console.log(err))
 
-//encontrar links dentro de archivo 'linksprueba.md'
-
-indexJS.takeLinks('./linksprueba.md')
-.then(res => console.log(res))
-.catch(err => console.log(err))
-
-// //testeo de URL
+//testeo de URL
 
 indexJS.urlStatus ('http://www.google.com')
-.then(res => console.log(res.status))
+.then(res => console.log(res))
 .catch(err => console.log(err))
-
+*/

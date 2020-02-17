@@ -1,17 +1,17 @@
 const fs = require('fs');
 const path = require('path');
-const regExp = /\]\(([^)]+)\)/g
+const regExp = /\]\((http[^)]+)\)/g
 const fetchUrl = require("fetch").fetchUrl;;
 
 module.exports = {
   // Funcion para leer archivo
   throughFolder: (location) => {
     return new Promise ((resolve, reject) => {
-      fs.readdir(location, (err, archivos) => {
+      fs.readdir(location, (err, files) => {
         if (err) {
         reject(err)
         }else{
-        resolve (archivos)
+        resolve(files)       
         }
       })                   
     })
@@ -22,7 +22,12 @@ module.exports = {
         if (err){
         reject(err)
         }else{
-        resolve(data.match(regExp))
+          let cleanLinks = []
+          const allLinks = data.match(regExp)
+          allLinks.forEach(e => {
+            cleanLinks.push(e.replace(/[\[\(\)\]]/g, ''))
+          })
+        resolve(cleanLinks)
         }        
       })
     })
@@ -40,3 +45,10 @@ module.exports = {
   }
 
 };
+
+/*let selectFiles = []
+          files.forEach(e => {
+            if(path.extname(e) === '.md'){
+              selectFiles.push(e)  
+            }    
+          })*/
