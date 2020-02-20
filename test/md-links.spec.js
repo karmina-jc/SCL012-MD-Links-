@@ -3,13 +3,13 @@ const path = require('path')
 
 
 test('the data is object', () => {
-  return mdLinks.mdLinks(path.resolve()).then(data => {
-    expect(data).toBe('object');
+  return mdLinks.throughFolder(path.resolve()).then(data => {
+    expect(typeof(data)).toBe('Array');
   });
 });
 
 test('the data is an Array', () => {
   return mdLinks.takeLinks('./README.md').then(data => {
-    expect(data).toBe('Array');
+    expect(typeof(data)).toBe('Array');
   });
 });
