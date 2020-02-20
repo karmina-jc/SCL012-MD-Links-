@@ -1,18 +1,15 @@
 const mdLinks = require('../index.js');
+const path = require('path')
 
 
-describe('mdLinks', () => {
-
-  it('should...', () => {
-    console.log('FIX ME!');
+test('the data is object', () => {
+  return mdLinks.mdLinks(path.resolve()).then(data => {
+    expect(data).toBe('object');
   });
-
 });
 
-describe('savePost', () => {
-  it('debería de poder agregar un post', () => {
-    return savePost('algun post').then((data) => {
-      expect(data).toBe('algun post');
-    });
+test('the data is an Array', () => {
+  return mdLinks.takeLinks('./README.md').then(data => {
+    expect(data).toBe('Array');
   });
 });

@@ -5,6 +5,7 @@
 [Github](https://github.com/)
 [Biblioteca](http://www.bibliotecasantiago.cl/pretas-frecuentes)
 [Slack](https://slack.com/intl/es-cl/)
+[Slack](https://slack.com/intl/es-cl/)
 [Firebase](https://firebase.google.com/)
 [Trello](https://trello.com/)
 [Noticia](https://www.biobiochile.cl/especial/arrayan/noticias/2020/02/04/muerte-de-insectos-a-ritmo-desconocido-alerta-a-ecologistas-y-tambien-deberia-preuparte-a-ti.shtml)
