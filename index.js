@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const regExp = /\]\((http[^)]+)\)/g
-const fetch = require('node-fetch')
+const fetchUrl = require("fetch").fetchUrl;
 
 
 // promesa lee carpeta
@@ -15,7 +15,7 @@ const throughFolder = (location) => {
       }
     })                   
   })
-}
+};
 
 // promesa que lee archivo y toma links
 const takeLinks = (docToRead) => {
@@ -33,30 +33,42 @@ const takeLinks = (docToRead) => {
       }        
     })
   })
-}
-
-module.exports = {
-  mdLinks: (location) => {
-    return new Promise((resolve, reject) => {
-      if(path.extname(location) === '.md'){
-        takeLinks(location)
-        .then (links => {
-          let checkedLinks = []
-          links.map(url => {
-            fetch(url)
-            .then(res => {
-              checkedLinks.push(location, url.split(0, 51), res.status)
-            })              
-            })                     
-            resolve(checkedLinks)
-          })
-      }else{
-        reject('Ingresa ruta de archivo Markdown')
-      }
-    })  
-  }
 };
 
-mdLinks('./linksprueba.md')
+const testLinks = (url) => {
+  return new Promise ((resolve, reject) => {
+    fetchUrl(url, (error, meta, body) => {
+     if (error) {
+       reject (error)
+     } else {
+       resolve (meta)
+     }
+    })
+   })
+};
 
-const comand = process.argv[2]
+const mdLinks = () => {
+  throughFolder(path.resolve())
+  .then(files => {
+    for (let i = 0; i < files.length; i++) {
+      if(path.extname(files[i]) === '.md') {
+        takeLinks(files[i])
+        .then(links => {
+          links.map(url => {
+            testLinks(url)
+            .then(checkedLink => {
+              if(checkedLink.status === 200){
+                console.log(files[i], url.split(0, 51), ' OK ', checkedLink.status)
+              }else{
+                console.log(files[i], url.split(0, 51), ' Broken ', checkedLink.status)
+              }
+            })
+          });
+      })
+    }        
+  }
+  })
+  .catch(err => console.log(err))
+}
+
+module.exports.mdLinks = mdLinks()
