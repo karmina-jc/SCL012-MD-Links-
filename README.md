@@ -7,20 +7,20 @@ mdLinks permite el usuario recorrer la carpeta en busca de archivos de extencion
 ## Instalación
 Para instalar mdLinks, en tu terminal dentro de la carpeta de los archivos a revisar:
 
-`$ npm install karmina-jc/md-links --save`
+`npm i md-links-karjc --save`
 
 ## Para hacer uso de la libreria:
 
 ### Import mdLinks
-`import { mdLinks } from 'mdLinks';`
+`import { mdLinks } from 'md-links-karjc';`
  
 ### Require mdLinks
 
-`const mdLinks = require ('mdLinks');`
+`const mdLinks = require ('md-links-karjc');`
 
 Una vez la libreria se encuentre importada (import) o requerida (require), podras usar sus componentes.
 
-`const mdLinks = require ('mdLinks');`
+`const mdLinks = require ('md-links-karjc');`
 
 `console.log(mdlinks)`
 
